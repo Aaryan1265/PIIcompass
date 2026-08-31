@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PIICompass - PII data-flow map and Article 30 draft</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <h1>PIICompass</h1>
+      <div class="tagline">Records of processing, recovered from your code and schema.</div>
+    </div>
+    <div class="actions">
+      <a class="btn-secondary" href="/artifact/article30.md">Download record</a>
+      <form method="post" action="/rescan">
+        <button class="btn-primary" type="submit">Re-run scan</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="banner">
+    Synthetic sample only. This scan targets the fictional &ldquo;MapleHealth&rdquo;
+    schema and code shipped in <em>sample_app/</em>. No real personal data,
+    system, or vendor is described. Point PIICompass at a real schema and
+    codebase to produce a real draft.
+  </div>
+
+  <div class="grid cols-wide">
+    <div class="card">
+      <div class="eyebrow">What the scan found</div>
+      <p class="finding">
+        PIICompass identified <span class="n">{{ summary.pii_columns }}</span>
+        personal-data fields across <span class="n">{{ summary.tables_with_pii }}</span>
+        tables, drafted purposes for <span class="n">{{ summary.processing_activities }}</span>
+        processing activities, and traced
+        <span class="hot">{{ summary.cross_border_transfers }} cross-border transfers</span>
+        to third countries.
+        {% if summary.special_columns %}
+        <span class="n">{{ summary.special_columns }}</span> of the fields are
+        special-category health data under Article 9.
+        {% endif %}
+      </p>
+      <div class="inline-metrics">
+        Data leaves to <span class="tabular">{{ summary.external_recipients }}</span>
+        external recipients, <span class="tabular">{{ summary.collection_points }}</span>
+        collection points feed <span class="tabular">{{ summary.flows }}</span> traced flows.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">Detection quality, measured against a sealed answer key</div>
+      <div class="kpi-line">
+        precision <span class="tabular">{{ '%.2f'|format(evaluation.precision) }}</span>
+        <span class="sep">/</span>
+        recall <span class="tabular">{{ '%.2f'|format(evaluation.recall) }}</span>
+        <span class="sep">/</span>
+        F1 <span class="hot tabular">{{ '%.2f'|format(evaluation.f1) }}</span>
+      </div>
+      <div class="confusion">
+        <span>true positives <b>{{ evaluation.true_positives }}</b></span>
+        <span>false positives <b>{{ evaluation.false_positives }}</b></span>
+        <span>false negatives <b>{{ evaluation.false_negatives }}</b></span>
+        <span>n = <b>{{ evaluation.n_columns_evaluated }}</b> columns</span>
+      </div>
+      <p class="muted">
+        Special-category recall
+        <b>{{ '%.2f'|format(evaluation.special_category_recall) }}</b>
+        (n={{ evaluation.special_category_n }}). The scanner is
+        <em>provably forbidden</em> to read this answer key: a static source scan
+        and a runtime file-open audit seal it during every run.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Data-flow map</h2>
+    <p class="muted">
+      Each line is personal data moving from a processing activity to where it
+      comes to rest or exits. Cross-border transfers are highlighted; dashed
+      lines carry special-category data. Hover an activity to isolate its flows.
+    </p>
+    {{ flow_map_svg|safe }}
+    <div class="legend">
+      <span><i class="swatch"></i>flow of personal data</span>
+      <span><i class="swatch transfer"></i>cross-border transfer (third country)</span>
+      <span><i class="swatch special"></i>special-category (Article 9)</span>
+      <span><i class="glyph">*</i>node handles special-category data</span>
+    </div>
+  </div>
+
+  <div class="grid cols-wide">
+    <div class="card">
+      <h2>Personal-data inventory</h2>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Search column or rule..." aria-label="Search columns">
+        <select id="cat" aria-label="Filter by category">
+          <option value="">All categories</option>
+          {% for key, label in summary.category_labels.items() %}
+            {% if summary.pii_by_category.get(key) %}
+            <option value="{{ key }}">{{ label }} ({{ summary.pii_by_category[key] }})</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <label class="check"><input type="checkbox" id="only9"> Special category only</label>
+        <span class="muted" id="count"></span>
+      </div>
+      <div class="table-scroll">
+        <table id="inv">
+          <thead>
+            <tr>
+              <th>Field</th><th>Category</th><th class="num">Confidence</th><th>Matched rule</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in pii_columns %}
+            <tr class="row" data-cat="{{ c.category }}" data-special="{{ 'y' if c.special else 'n' }}"
+                data-text="{{ c.table }}.{{ c.column }} {{ c.rule }}">
+              <td class="mono-id">{{ c.table }}.{{ c.column }}</td>
+              <td>
+                {{ summary.category_labels.get(c.category, c.category) }}
+                {% if c.special %}<span class="tag9"><span class="glyph">&#9670;</span> Art. 9</span>{% endif %}
+              </td>
+              <td class="num tabular">{{ '%.2f'|format(c.confidence) }}</td>
+              <td class="rule">{{ c.rule }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Fields by category</h2>
+      {{ category_bar_svg|safe }}
+      <h3>External recipients</h3>
+      <ul class="record">
+        {% for r in record.recipients %}
+        <li>
+          {{ r.recipient }}
+          <span class="muted">({{ r.role }}, {{ r.country }})</span>
+          {% if r.recipient in transfer_recipients %}<span class="tag-special">- cross-border</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid cols-2">
+    <div class="card record">
+      <h2>Article 30(1) record of processing</h2>
+      <div class="status-line">{{ record.status }} &middot; AI drafting: {{ record.ai_status }}</div>
+
+      <h3>(a) Controller</h3>
+      <ul>
+        <li>Name: {% if record.controller.name == placeholder %}<span class="todo">{{ record.controller.name }}</span>{% else %}{{ record.controller.name }}{% endif %}</li>
+        <li>Contact: {% if record.controller.contact == placeholder %}<span class="todo">{{ record.controller.contact }}</span>{% else %}{{ record.controller.contact }}{% endif %}</li>
+        <li>DPO: {% if record.controller.dpo_contact == placeholder %}<span class="todo">{{ record.controller.dpo_contact }}</span>{% else %}{{ record.controller.dpo_contact }}{% endif %}</li>
+      </ul>
+
+      <h3>(b) Purposes</h3>
+      <ul>
+        {% for p in record.purposes %}
+        <li>{{ p.purpose }} <span class="muted">({{ p.activity }}; {{ p.data_categories|join(', ') }})</span></li>
+        {% endfor %}
+      </ul>
+
+      <h3>(c) Data subjects</h3>
+      <ul>{% for s in record.data_subjects %}<li>{{ s }}</li>{% endfor %}</ul>
+
+      <h3>(c) Categories of personal data</h3>
+      <ul>
+        {% for dc in record.data_categories %}
+        <li>{{ dc.label }}{% if dc.special %} <span class="tag-special">(special category)</span>{% endif %}: <span class="muted">{{ dc.examples|join(', ') }}</span></li>
+        {% endfor %}
+      </ul>
+
+      <h3>(d) Recipients</h3>
+      <ul>{% for r in record.recipients %}<li>{{ r.recipient }} <span class="muted">({{ r.country }})</span></li>{% endfor %}</ul>
+
+      <h3>(e) Third-country transfers</h3>
+      <ul>
+        {% for t in record.third_country_transfers %}
+        <li>{{ t.recipient }} &rarr; {{ t.country }} <span class="muted">safeguard: {{ t.safeguard }}</span></li>
+        {% else %}
+        <li class="muted">None detected.</li>
+        {% endfor %}
+      </ul>
+
+      <h3>(f) Retention</h3>
+      <ul><li><span class="todo">{{ record.retention.policy }}</span> <span class="muted">{{ record.retention.note }}</span></li></ul>
+
+      <h3>(g) Security measures</h3>
+      <p class="muted">{{ record.security_measures }}</p>
+
+      <div class="downloads">
+        <a class="btn-secondary" href="/artifact/article30.json">Article 30 (JSON)</a>
+        <a class="btn-secondary" href="/artifact/article30.md">Article 30 (Markdown)</a>
+        <a class="btn-secondary" href="/artifact/pii_columns.csv">PII columns (CSV)</a>
+        <a class="btn-secondary" href="/artifact/scan.json">Full scan (JSON)</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Limitations</h2>
+      <p class="muted">
+        A discovery tool that hides its blind spots is worse than useless. These
+        are the known gaps in this scan, confirmed against the sealed answer key.
+      </p>
+      <ul class="limits">
+        {% for fn in evaluation.false_negative_detail %}
+        <li><span class="fault">Missed:</span> {{ fn.table }}.{{ fn.column }}
+          {% if fn.note %}<em>({{ fn.note }})</em>{% endif %}. Name-based scanning
+          cannot see inside free-text columns.</li>
+        {% endfor %}
+        {% for fp in evaluation.false_positive_detail %}
+        <li><span class="fault">Over-flagged:</span> {{ fp.table }}.{{ fp.column }}
+          {% if fp.note %}<em>({{ fp.note }})</em>{% endif %}. A reviewer should
+          confirm or dismiss.</li>
+        {% endfor %}
+        <li>Flow tracing is heuristic and intra-procedural: it follows data within
+          a function, not across modules, and favours recall over precision.</li>
+        <li>Retention periods, legal bases and controller details cannot be
+          inferred from code and are left for a human to complete.</li>
+        <li>All figures above are signal recovery on synthetic data; a real-data
+          run is the next step before any of these numbers describe a live system.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    PIICompass &middot; deterministic pipeline &middot; artifacts are byte-identical across runs.
+  </div>
+</div>
+
+<script>
+(function () {
+  var q = document.getElementById('q');
+  var cat = document.getElementById('cat');
+  var only9 = document.getElementById('only9');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#inv tbody tr.row'));
+  var count = document.getElementById('count');
+
+  function apply() {
+    var term = (q.value || '').toLowerCase();
+    var c = cat.value;
+    var nine = only9.checked;
+    var shown = 0;
+    rows.forEach(function (r) {
+      var ok = true;
+      if (term && r.getAttribute('data-text').toLowerCase().indexOf(term) === -1) ok = false;
+      if (c && r.getAttribute('data-cat') !== c) ok = false;
+      if (nine && r.getAttribute('data-special') !== 'y') ok = false;
+      r.classList.toggle('hidden', !ok);
+      if (ok) shown++;
+    });
+    count.textContent = shown + ' of ' + rows.length + ' shown';
+  }
+  [q, cat].forEach(function (el) { el.addEventListener('input', apply); });
+  only9.addEventListener('change', apply);
+  apply();
+
+  // Flow-map hover isolation.
+  var svg = document.querySelector('.flowmap');
+  if (svg) {
+    var edges = Array.prototype.slice.call(svg.querySelectorAll('.edge'));
+    var nodes = Array.prototype.slice.call(svg.querySelectorAll('.node'));
+    function isolate(id) {
+      var connected = {};
+      connected[id] = true;
+      edges.forEach(function (e) {
+        var s = e.getAttribute('data-src'), d = e.getAttribute('data-dst');
+        var on = (s === id || d === id);
+        e.classList.toggle('dim', !on);
+        if (on) { connected[s] = true; connected[d] = true; }
+      });
+      nodes.forEach(function (n) {
+        n.classList.toggle('dim', !connected[n.getAttribute('data-node')]);
+      });
+    }
+    function reset() {
+      edges.forEach(function (e) { e.classList.remove('dim'); });
+      nodes.forEach(function (n) { n.classList.remove('dim'); });
+    }
+    nodes.forEach(function (n) {
+      n.addEventListener('mouseenter', function () { isolate(n.getAttribute('data-node')); });
+      n.addEventListener('mouseleave', reset);
+    });
+  }
+})();
+</script>
+</body>
+</html>

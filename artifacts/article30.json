@@ -1,0 +1,232 @@
+{
+  "ai_assisted_fields": [],
+  "ai_status": "disabled (no ANTHROPIC_API_KEY); deterministic draft used",
+  "controller": {
+    "contact": "TO BE COMPLETED BY THE CONTROLLER / DPO",
+    "dpo_contact": "TO BE COMPLETED BY THE CONTROLLER / DPO",
+    "name": "TO BE COMPLETED BY THE CONTROLLER / DPO"
+  },
+  "data_categories": [
+    {
+      "category": "contact",
+      "description": "Email, phone, postal address and location of a person.",
+      "examples": [
+        "analytics_events.geo_region",
+        "audit_log.actor_email",
+        "contacts.contact_phone",
+        "patients.address_line1",
+        "patients.email",
+        "patients.phone",
+        "patients.postal_code"
+      ],
+      "label": "Contact",
+      "special": false
+    },
+    {
+      "category": "financial",
+      "description": "Payment card, bank and billing details.",
+      "examples": [
+        "payments.card_expiry",
+        "payments.card_number"
+      ],
+      "label": "Financial",
+      "special": false
+    },
+    {
+      "category": "government_id",
+      "description": "National insurance, passport, tax and similar state IDs.",
+      "examples": [
+        "patients.national_insurance_no"
+      ],
+      "label": "Government identifier",
+      "special": false
+    },
+    {
+      "category": "health",
+      "description": "Diagnoses, clinical and other health data (Article 9).",
+      "examples": [
+        "health_records.blood_type",
+        "health_records.diagnosis_code"
+      ],
+      "label": "Health (special category)",
+      "special": true
+    },
+    {
+      "category": "identity",
+      "description": "Names, dates of birth and other direct identifiers.",
+      "examples": [
+        "appointments.clinician_name",
+        "cities.city_name",
+        "contacts.contact_name",
+        "patients.date_of_birth",
+        "patients.first_name",
+        "patients.last_name"
+      ],
+      "label": "Identity",
+      "special": false
+    },
+    {
+      "category": "online_identifier",
+      "description": "IP address, device and session identifiers, user agent.",
+      "examples": [
+        "analytics_events.device_id",
+        "analytics_events.ip_address",
+        "analytics_events.session_id",
+        "analytics_events.user_agent"
+      ],
+      "label": "Online identifier",
+      "special": false
+    }
+  ],
+  "data_subjects": [
+    "Clinical staff",
+    "Emergency contacts (third parties)",
+    "Patients",
+    "Staff users",
+    "Website visitors"
+  ],
+  "purposes": [
+    {
+      "activity": "add_emergency_contact",
+      "data_categories": [
+        "contact",
+        "identity"
+      ],
+      "purpose": "Maintaining emergency contact details for patients.",
+      "special": false
+    },
+    {
+      "activity": "book_appointment",
+      "data_categories": [
+        "contact",
+        "identity"
+      ],
+      "purpose": "Scheduling appointments and sending reminders.",
+      "special": false
+    },
+    {
+      "activity": "charge_patient",
+      "data_categories": [
+        "contact",
+        "financial"
+      ],
+      "purpose": "Taking payment for services and issuing receipts.",
+      "special": false
+    },
+    {
+      "activity": "export_patient_csv",
+      "data_categories": [
+        "contact",
+        "government_id",
+        "identity"
+      ],
+      "purpose": "Bulk export of patient records for reporting.",
+      "special": false
+    },
+    {
+      "activity": "record_health",
+      "data_categories": [
+        "health"
+      ],
+      "purpose": "Recording and managing clinical and health information.",
+      "special": true
+    },
+    {
+      "activity": "register_patient",
+      "data_categories": [
+        "contact",
+        "government_id",
+        "identity",
+        "online_identifier"
+      ],
+      "purpose": "Registration and administration of patient accounts.",
+      "special": false
+    },
+    {
+      "activity": "track_pageview",
+      "data_categories": [
+        "contact",
+        "online_identifier"
+      ],
+      "purpose": "Website and product analytics.",
+      "special": false
+    }
+  ],
+  "recipients": [
+    {
+      "country": "France",
+      "data_categories": [
+        "contact"
+      ],
+      "recipient": "Mailjet (transactional email)",
+      "role": "processor",
+      "special": false
+    },
+    {
+      "country": "United States",
+      "data_categories": [
+        "contact",
+        "online_identifier"
+      ],
+      "recipient": "Mixpanel (product analytics)",
+      "role": "processor",
+      "special": false
+    },
+    {
+      "country": "United States",
+      "data_categories": [
+        "financial"
+      ],
+      "recipient": "Stripe Payments (payment processor)",
+      "role": "processor",
+      "special": false
+    },
+    {
+      "country": "United States",
+      "data_categories": [
+        "contact"
+      ],
+      "recipient": "Twilio SendGrid (transactional email)",
+      "role": "processor",
+      "special": false
+    }
+  ],
+  "retention": {
+    "note": "Retention periods cannot be inferred from code and must be set per data category and legal basis.",
+    "policy": "TO BE COMPLETED BY THE CONTROLLER / DPO"
+  },
+  "security_measures": "Access to personal data is restricted on a need-to-know basis. Data in transit is protected with TLS. Payment card data is handled by a PCI-DSS compliant processor and is not stored in clear text. Application activity is recorded in an audit log. These are baseline measures inferred from the codebase and must be reviewed and completed by the controller.",
+  "special_category_present": true,
+  "status": "DRAFT - auto-generated from a code and schema scan; requires human review",
+  "third_country_transfers": [
+    {
+      "country": "United States",
+      "data_categories": [
+        "contact",
+        "online_identifier"
+      ],
+      "recipient": "Mixpanel (product analytics)",
+      "safeguard": "Standard Contractual Clauses",
+      "special": false
+    },
+    {
+      "country": "United States",
+      "data_categories": [
+        "financial"
+      ],
+      "recipient": "Stripe Payments (payment processor)",
+      "safeguard": "Standard Contractual Clauses",
+      "special": false
+    },
+    {
+      "country": "United States",
+      "data_categories": [
+        "contact"
+      ],
+      "recipient": "Twilio SendGrid (transactional email)",
+      "safeguard": "Standard Contractual Clauses",
+      "special": false
+    }
+  ],
+  "title": "Record of processing activities (GDPR Article 30(1))"
+}

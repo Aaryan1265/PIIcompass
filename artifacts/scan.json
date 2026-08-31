@@ -1,0 +1,1268 @@
+{
+  "code": {
+    "collection_points": [
+      {
+        "category": "online_identifier",
+        "confidence": 0.88,
+        "field": "device_id",
+        "file": "analytics.py",
+        "function": "track_pageview",
+        "special": false
+      },
+      {
+        "category": "contact",
+        "confidence": 0.6,
+        "field": "geo_region",
+        "file": "analytics.py",
+        "function": "track_pageview",
+        "special": false
+      },
+      {
+        "category": "online_identifier",
+        "confidence": 0.85,
+        "field": "ip_address",
+        "file": "analytics.py",
+        "function": "track_pageview",
+        "special": false
+      },
+      {
+        "category": "online_identifier",
+        "confidence": 0.88,
+        "field": "session_id",
+        "file": "analytics.py",
+        "function": "track_pageview",
+        "special": false
+      },
+      {
+        "category": "online_identifier",
+        "confidence": 0.85,
+        "field": "user_agent",
+        "file": "analytics.py",
+        "function": "track_pageview",
+        "special": false
+      },
+      {
+        "category": "identity",
+        "confidence": 0.86,
+        "field": "contact_name",
+        "file": "api.py",
+        "function": "add_emergency_contact",
+        "special": false
+      },
+      {
+        "category": "contact",
+        "confidence": 0.9,
+        "field": "contact_phone",
+        "file": "api.py",
+        "function": "add_emergency_contact",
+        "special": false
+      },
+      {
+        "category": "identity",
+        "confidence": 0.86,
+        "field": "clinician_name",
+        "file": "api.py",
+        "function": "book_appointment",
+        "special": false
+      },
+      {
+        "category": "contact",
+        "confidence": 0.9,
+        "field": "email",
+        "file": "api.py",
+        "function": "book_appointment",
+        "special": false
+      },
+      {
+        "category": "health",
+        "confidence": 0.9,
+        "field": "blood_type",
+        "file": "api.py",
+        "function": "record_health",
+        "special": true
+      },
+      {
+        "category": "health",
+        "confidence": 0.9,
+        "field": "diagnosis_code",
+        "file": "api.py",
+        "function": "record_health",
+        "special": true
+      },
+      {
+        "category": "contact",
+        "confidence": 0.6,
+        "field": "address_line1",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "identity",
+        "confidence": 0.84,
+        "field": "date_of_birth",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "contact",
+        "confidence": 0.9,
+        "field": "email",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "identity",
+        "confidence": 0.86,
+        "field": "first_name",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "online_identifier",
+        "confidence": 0.85,
+        "field": "ip_address",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "identity",
+        "confidence": 0.86,
+        "field": "last_name",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "government_id",
+        "confidence": 0.95,
+        "field": "national_insurance_no",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "contact",
+        "confidence": 0.9,
+        "field": "phone",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "contact",
+        "confidence": 0.6,
+        "field": "postal_code",
+        "file": "api.py",
+        "function": "register_patient",
+        "special": false
+      },
+      {
+        "category": "financial",
+        "confidence": 0.93,
+        "field": "card_expiry",
+        "file": "billing.py",
+        "function": "charge_patient",
+        "special": false
+      },
+      {
+        "category": "financial",
+        "confidence": 0.93,
+        "field": "card_number",
+        "file": "billing.py",
+        "function": "charge_patient",
+        "special": false
+      },
+      {
+        "category": "contact",
+        "confidence": 0.9,
+        "field": "email",
+        "file": "billing.py",
+        "function": "charge_patient",
+        "special": false
+      }
+    ],
+    "flows": [
+      {
+        "categories": [
+          "contact",
+          "online_identifier"
+        ],
+        "country": "United States",
+        "file": "analytics.py",
+        "function": "track_pageview",
+        "iso": "US",
+        "recipient": "Mixpanel (product analytics)",
+        "role": "processor",
+        "safeguard": "Standard Contractual Clauses",
+        "sink_kind": "external_service",
+        "special": false,
+        "target": "Mixpanel (product analytics)",
+        "third_country": true
+      },
+      {
+        "categories": [
+          "contact",
+          "identity"
+        ],
+        "file": "api.py",
+        "function": "add_emergency_contact",
+        "sink_kind": "datastore",
+        "special": false,
+        "target": "contacts"
+      },
+      {
+        "categories": [
+          "identity"
+        ],
+        "file": "api.py",
+        "function": "book_appointment",
+        "sink_kind": "datastore",
+        "special": false,
+        "target": "appointments"
+      },
+      {
+        "categories": [
+          "contact"
+        ],
+        "country": "France",
+        "file": "api.py",
+        "function": "book_appointment",
+        "iso": "FR",
+        "recipient": "Mailjet (transactional email)",
+        "role": "processor",
+        "safeguard": null,
+        "sink_kind": "external_service",
+        "special": false,
+        "target": "Mailjet (transactional email)",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "health"
+        ],
+        "file": "api.py",
+        "function": "record_health",
+        "sink_kind": "datastore",
+        "special": true,
+        "target": "health_records"
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity"
+        ],
+        "file": "api.py",
+        "function": "register_patient",
+        "sink_kind": "datastore",
+        "special": false,
+        "target": "patients"
+      },
+      {
+        "categories": [
+          "contact",
+          "online_identifier"
+        ],
+        "country": "United States",
+        "file": "api.py",
+        "function": "register_patient",
+        "iso": "US",
+        "recipient": "Mixpanel (product analytics)",
+        "role": "processor",
+        "safeguard": "Standard Contractual Clauses",
+        "sink_kind": "external_service",
+        "special": false,
+        "target": "Mixpanel (product analytics)",
+        "third_country": true
+      },
+      {
+        "categories": [
+          "identity"
+        ],
+        "file": "api.py",
+        "function": "register_patient",
+        "sink_kind": "log",
+        "special": false,
+        "target": "Application logs"
+      },
+      {
+        "categories": [
+          "financial"
+        ],
+        "file": "billing.py",
+        "function": "charge_patient",
+        "sink_kind": "datastore",
+        "special": false,
+        "target": "payments"
+      },
+      {
+        "categories": [
+          "financial"
+        ],
+        "country": "United States",
+        "file": "billing.py",
+        "function": "charge_patient",
+        "iso": "US",
+        "recipient": "Stripe Payments (payment processor)",
+        "role": "processor",
+        "safeguard": "Standard Contractual Clauses",
+        "sink_kind": "external_service",
+        "special": false,
+        "target": "Stripe Payments (payment processor)",
+        "third_country": true
+      },
+      {
+        "categories": [
+          "contact"
+        ],
+        "country": "United States",
+        "file": "billing.py",
+        "function": "charge_patient",
+        "iso": "US",
+        "recipient": "Twilio SendGrid (transactional email)",
+        "role": "processor",
+        "safeguard": "Standard Contractual Clauses",
+        "sink_kind": "external_service",
+        "special": false,
+        "target": "Twilio SendGrid (transactional email)",
+        "third_country": true
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity"
+        ],
+        "file": "exports.py",
+        "function": "export_patient_csv",
+        "sink_kind": "export",
+        "special": false,
+        "target": "CSV export file"
+      }
+    ]
+  },
+  "graph": {
+    "activities": [
+      {
+        "categories": [
+          "contact",
+          "identity"
+        ],
+        "file": "api.py",
+        "function": "add_emergency_contact",
+        "id": "add_emergency_contact",
+        "special": false
+      },
+      {
+        "categories": [
+          "contact",
+          "identity"
+        ],
+        "file": "api.py",
+        "function": "book_appointment",
+        "id": "book_appointment",
+        "special": false
+      },
+      {
+        "categories": [
+          "contact",
+          "financial"
+        ],
+        "file": "billing.py",
+        "function": "charge_patient",
+        "id": "charge_patient",
+        "special": false
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity"
+        ],
+        "file": "exports.py",
+        "function": "export_patient_csv",
+        "id": "export_patient_csv",
+        "special": false
+      },
+      {
+        "categories": [
+          "health"
+        ],
+        "file": "api.py",
+        "function": "record_health",
+        "id": "record_health",
+        "special": true
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity",
+          "online_identifier"
+        ],
+        "file": "api.py",
+        "function": "register_patient",
+        "id": "register_patient",
+        "special": false
+      },
+      {
+        "categories": [
+          "contact",
+          "online_identifier"
+        ],
+        "file": "analytics.py",
+        "function": "track_pageview",
+        "id": "track_pageview",
+        "special": false
+      }
+    ],
+    "category_labels": {
+      "contact": "Contact",
+      "credentials": "Authentication",
+      "financial": "Financial",
+      "free_text": "Free text (possible PII)",
+      "government_id": "Government identifier",
+      "health": "Health (special category)",
+      "identity": "Identity",
+      "online_identifier": "Online identifier"
+    },
+    "destinations": [
+      {
+        "categories": [
+          "contact"
+        ],
+        "country": "France",
+        "id": "recipient:Mailjet (transactional email)",
+        "kind": "external_service",
+        "label": "Mailjet (transactional email)",
+        "role": "processor",
+        "safeguard": null,
+        "special": false,
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact",
+          "online_identifier"
+        ],
+        "country": "United States",
+        "id": "recipient:Mixpanel (product analytics)",
+        "kind": "external_service",
+        "label": "Mixpanel (product analytics)",
+        "role": "processor",
+        "safeguard": "Standard Contractual Clauses",
+        "special": false,
+        "third_country": true
+      },
+      {
+        "categories": [
+          "financial"
+        ],
+        "country": "United States",
+        "id": "recipient:Stripe Payments (payment processor)",
+        "kind": "external_service",
+        "label": "Stripe Payments (payment processor)",
+        "role": "processor",
+        "safeguard": "Standard Contractual Clauses",
+        "special": false,
+        "third_country": true
+      },
+      {
+        "categories": [
+          "contact"
+        ],
+        "country": "United States",
+        "id": "recipient:Twilio SendGrid (transactional email)",
+        "kind": "external_service",
+        "label": "Twilio SendGrid (transactional email)",
+        "role": "processor",
+        "safeguard": "Standard Contractual Clauses",
+        "special": false,
+        "third_country": true
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity"
+        ],
+        "country": null,
+        "id": "sink:export",
+        "kind": "export",
+        "label": "CSV export file",
+        "role": null,
+        "safeguard": null,
+        "special": false,
+        "third_country": false
+      },
+      {
+        "categories": [
+          "identity"
+        ],
+        "country": null,
+        "id": "sink:logs",
+        "kind": "log",
+        "label": "Application logs",
+        "role": null,
+        "safeguard": null,
+        "special": false,
+        "third_country": false
+      },
+      {
+        "categories": [
+          "identity"
+        ],
+        "country": null,
+        "id": "table:appointments",
+        "kind": "datastore",
+        "label": "appointments",
+        "role": null,
+        "safeguard": null,
+        "special": false,
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact",
+          "identity"
+        ],
+        "country": null,
+        "id": "table:contacts",
+        "kind": "datastore",
+        "label": "contacts",
+        "role": null,
+        "safeguard": null,
+        "special": false,
+        "third_country": false
+      },
+      {
+        "categories": [
+          "health"
+        ],
+        "country": null,
+        "id": "table:health_records",
+        "kind": "datastore",
+        "label": "health_records",
+        "role": null,
+        "safeguard": null,
+        "special": true,
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity"
+        ],
+        "country": null,
+        "id": "table:patients",
+        "kind": "datastore",
+        "label": "patients",
+        "role": null,
+        "safeguard": null,
+        "special": false,
+        "third_country": false
+      },
+      {
+        "categories": [
+          "financial"
+        ],
+        "country": null,
+        "id": "table:payments",
+        "kind": "datastore",
+        "label": "payments",
+        "role": null,
+        "safeguard": null,
+        "special": false,
+        "third_country": false
+      }
+    ],
+    "edges": [
+      {
+        "categories": [
+          "contact",
+          "identity"
+        ],
+        "source": "add_emergency_contact",
+        "special": false,
+        "target": "table:contacts",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact"
+        ],
+        "source": "book_appointment",
+        "special": false,
+        "target": "recipient:Mailjet (transactional email)",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "identity"
+        ],
+        "source": "book_appointment",
+        "special": false,
+        "target": "table:appointments",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "financial"
+        ],
+        "source": "charge_patient",
+        "special": false,
+        "target": "recipient:Stripe Payments (payment processor)",
+        "third_country": true
+      },
+      {
+        "categories": [
+          "contact"
+        ],
+        "source": "charge_patient",
+        "special": false,
+        "target": "recipient:Twilio SendGrid (transactional email)",
+        "third_country": true
+      },
+      {
+        "categories": [
+          "financial"
+        ],
+        "source": "charge_patient",
+        "special": false,
+        "target": "table:payments",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity"
+        ],
+        "source": "export_patient_csv",
+        "special": false,
+        "target": "sink:export",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "health"
+        ],
+        "source": "record_health",
+        "special": true,
+        "target": "table:health_records",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact",
+          "online_identifier"
+        ],
+        "source": "register_patient",
+        "special": false,
+        "target": "recipient:Mixpanel (product analytics)",
+        "third_country": true
+      },
+      {
+        "categories": [
+          "identity"
+        ],
+        "source": "register_patient",
+        "special": false,
+        "target": "sink:logs",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact",
+          "government_id",
+          "identity"
+        ],
+        "source": "register_patient",
+        "special": false,
+        "target": "table:patients",
+        "third_country": false
+      },
+      {
+        "categories": [
+          "contact",
+          "online_identifier"
+        ],
+        "source": "track_pageview",
+        "special": false,
+        "target": "recipient:Mixpanel (product analytics)",
+        "third_country": true
+      }
+    ]
+  },
+  "schema": [
+    {
+      "category": "online_identifier",
+      "column": "device_id",
+      "confidence": 0.88,
+      "is_pii": true,
+      "rationale": "Field is an allow-listed online identifier ending in _id.",
+      "rule": "online_id_allowlist",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "analytics_events"
+    },
+    {
+      "category": null,
+      "column": "event_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "analytics_events"
+    },
+    {
+      "category": "contact",
+      "column": "geo_region",
+      "confidence": 0.6,
+      "is_pii": true,
+      "rationale": "Field name denotes a postal or geographic attribute (review: may be reference data rather than a person's location).",
+      "rule": "postal_or_location",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "analytics_events"
+    },
+    {
+      "category": "online_identifier",
+      "column": "ip_address",
+      "confidence": 0.85,
+      "is_pii": true,
+      "rationale": "Field name denotes an online, network or device identifier.",
+      "rule": "network_or_device",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "analytics_events"
+    },
+    {
+      "category": null,
+      "column": "page_url",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "analytics_events"
+    },
+    {
+      "category": "online_identifier",
+      "column": "session_id",
+      "confidence": 0.88,
+      "is_pii": true,
+      "rationale": "Field is an allow-listed online identifier ending in _id.",
+      "rule": "online_id_allowlist",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "analytics_events"
+    },
+    {
+      "category": "online_identifier",
+      "column": "user_agent",
+      "confidence": 0.85,
+      "is_pii": true,
+      "rationale": "Field name denotes an online, network or device identifier.",
+      "rule": "network_or_device",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "analytics_events"
+    },
+    {
+      "category": null,
+      "column": "appointment_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "appointments"
+    },
+    {
+      "category": "identity",
+      "column": "clinician_name",
+      "confidence": 0.86,
+      "is_pii": true,
+      "rationale": "Field name denotes a person's name.",
+      "rule": "person_name",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "appointments"
+    },
+    {
+      "category": null,
+      "column": "patient_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "appointments"
+    },
+    {
+      "category": null,
+      "column": "scheduled_for",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TIMESTAMP",
+      "table": "appointments"
+    },
+    {
+      "category": null,
+      "column": "action",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "audit_log"
+    },
+    {
+      "category": "contact",
+      "column": "actor_email",
+      "confidence": 0.9,
+      "is_pii": true,
+      "rationale": "Field name denotes an electronic contact point.",
+      "rule": "electronic_contact",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "audit_log"
+    },
+    {
+      "category": null,
+      "column": "created_at",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TIMESTAMP",
+      "table": "audit_log"
+    },
+    {
+      "category": null,
+      "column": "log_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "audit_log"
+    },
+    {
+      "category": null,
+      "column": "payload",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "audit_log"
+    },
+    {
+      "category": null,
+      "column": "city_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "cities"
+    },
+    {
+      "category": "identity",
+      "column": "city_name",
+      "confidence": 0.86,
+      "is_pii": true,
+      "rationale": "Field name denotes a person's name.",
+      "rule": "person_name",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "cities"
+    },
+    {
+      "category": null,
+      "column": "population",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "cities"
+    },
+    {
+      "category": null,
+      "column": "contact_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "contacts"
+    },
+    {
+      "category": "identity",
+      "column": "contact_name",
+      "confidence": 0.86,
+      "is_pii": true,
+      "rationale": "Field name denotes a person's name.",
+      "rule": "person_name",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "contacts"
+    },
+    {
+      "category": "contact",
+      "column": "contact_phone",
+      "confidence": 0.9,
+      "is_pii": true,
+      "rationale": "Field name denotes an electronic contact point.",
+      "rule": "electronic_contact",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "contacts"
+    },
+    {
+      "category": null,
+      "column": "contact_type",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "contacts"
+    },
+    {
+      "category": null,
+      "column": "patient_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "contacts"
+    },
+    {
+      "category": null,
+      "column": "relationship",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "contacts"
+    },
+    {
+      "category": "health",
+      "column": "blood_type",
+      "confidence": 0.9,
+      "is_pii": true,
+      "rationale": "Field name denotes health data, a special category under Article 9.",
+      "rule": "clinical_data",
+      "special": true,
+      "sql_type": "TEXT",
+      "table": "health_records"
+    },
+    {
+      "category": null,
+      "column": "consent_flag",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "BOOLEAN",
+      "table": "health_records"
+    },
+    {
+      "category": "health",
+      "column": "diagnosis_code",
+      "confidence": 0.9,
+      "is_pii": true,
+      "rationale": "Field name denotes health data, a special category under Article 9.",
+      "rule": "clinical_data",
+      "special": true,
+      "sql_type": "TEXT",
+      "table": "health_records"
+    },
+    {
+      "category": null,
+      "column": "patient_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "health_records"
+    },
+    {
+      "category": null,
+      "column": "record_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "health_records"
+    },
+    {
+      "category": "contact",
+      "column": "address_line1",
+      "confidence": 0.6,
+      "is_pii": true,
+      "rationale": "Field name denotes a postal or geographic attribute (review: may be reference data rather than a person's location).",
+      "rule": "postal_or_location",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": null,
+      "column": "city_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "patients"
+    },
+    {
+      "category": null,
+      "column": "created_at",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TIMESTAMP",
+      "table": "patients"
+    },
+    {
+      "category": "identity",
+      "column": "date_of_birth",
+      "confidence": 0.84,
+      "is_pii": true,
+      "rationale": "Field name denotes a birth or demographic attribute of a person.",
+      "rule": "birth_or_demographic",
+      "special": false,
+      "sql_type": "DATE",
+      "table": "patients"
+    },
+    {
+      "category": "contact",
+      "column": "email",
+      "confidence": 0.9,
+      "is_pii": true,
+      "rationale": "Field name denotes an electronic contact point.",
+      "rule": "electronic_contact",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": "identity",
+      "column": "first_name",
+      "confidence": 0.86,
+      "is_pii": true,
+      "rationale": "Field name denotes a person's name.",
+      "rule": "person_name",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": "identity",
+      "column": "last_name",
+      "confidence": 0.86,
+      "is_pii": true,
+      "rationale": "Field name denotes a person's name.",
+      "rule": "person_name",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": "government_id",
+      "column": "national_insurance_no",
+      "confidence": 0.95,
+      "is_pii": true,
+      "rationale": "Field name denotes a government-issued identifier.",
+      "rule": "state_identifier",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": null,
+      "column": "notes",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": null,
+      "column": "patient_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "patients"
+    },
+    {
+      "category": "contact",
+      "column": "phone",
+      "confidence": 0.9,
+      "is_pii": true,
+      "rationale": "Field name denotes an electronic contact point.",
+      "rule": "electronic_contact",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": "contact",
+      "column": "postal_code",
+      "confidence": 0.6,
+      "is_pii": true,
+      "rationale": "Field name denotes a postal or geographic attribute (review: may be reference data rather than a person's location).",
+      "rule": "postal_or_location",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "patients"
+    },
+    {
+      "category": null,
+      "column": "amount_cents",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "payments"
+    },
+    {
+      "category": "financial",
+      "column": "card_expiry",
+      "confidence": 0.93,
+      "is_pii": true,
+      "rationale": "Field name denotes a payment card or bank detail.",
+      "rule": "payment_instrument",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "payments"
+    },
+    {
+      "category": "financial",
+      "column": "card_number",
+      "confidence": 0.93,
+      "is_pii": true,
+      "rationale": "Field name denotes a payment card or bank detail.",
+      "rule": "payment_instrument",
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "payments"
+    },
+    {
+      "category": null,
+      "column": "currency",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "TEXT",
+      "table": "payments"
+    },
+    {
+      "category": null,
+      "column": "patient_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "payments"
+    },
+    {
+      "category": null,
+      "column": "payment_id",
+      "confidence": null,
+      "is_pii": false,
+      "rationale": null,
+      "rule": null,
+      "special": false,
+      "sql_type": "INTEGER",
+      "table": "payments"
+    }
+  ],
+  "summary": {
+    "category_labels": {
+      "contact": "Contact",
+      "credentials": "Authentication",
+      "financial": "Financial",
+      "free_text": "Free text (possible PII)",
+      "government_id": "Government identifier",
+      "health": "Health (special category)",
+      "identity": "Identity",
+      "online_identifier": "Online identifier"
+    },
+    "collection_points": 23,
+    "cross_border_transfers": 3,
+    "destination_kinds": {
+      "datastore": 5,
+      "export": 1,
+      "external_service": 4,
+      "log": 1
+    },
+    "external_recipients": 4,
+    "flows": 12,
+    "pii_by_category": {
+      "contact": 7,
+      "financial": 2,
+      "government_id": 1,
+      "health": 2,
+      "identity": 6,
+      "online_identifier": 4
+    },
+    "pii_columns": 22,
+    "processing_activities": 7,
+    "special_columns": 2,
+    "tables_with_pii": 8,
+    "total_columns": 48
+  }
+}

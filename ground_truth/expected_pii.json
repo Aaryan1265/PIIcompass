@@ -1,0 +1,60 @@
+{
+  "_comment": "SEALED GROUND TRUTH. Hand-labelled by a human reviewer, independent of the scanner rules. The scanning pipeline is forbidden to read this file; only evaluate.py opens it, and only after artifacts are produced. It deliberately includes cases the naive name-based scanner should get wrong: a free-text 'notes' column it will miss (false negative), and reference-grade 'city_name' and coarse 'geo_region' columns it will over-flag (false positives).",
+  "columns": [
+    {"table": "cities", "column": "city_id", "is_pii": false, "category": null, "special": false},
+    {"table": "cities", "column": "city_name", "is_pii": false, "category": null, "special": false, "note": "reference data, a place not a person"},
+    {"table": "cities", "column": "population", "is_pii": false, "category": null, "special": false},
+
+    {"table": "patients", "column": "patient_id", "is_pii": false, "category": null, "special": false},
+    {"table": "patients", "column": "first_name", "is_pii": true, "category": "identity", "special": false},
+    {"table": "patients", "column": "last_name", "is_pii": true, "category": "identity", "special": false},
+    {"table": "patients", "column": "date_of_birth", "is_pii": true, "category": "identity", "special": false},
+    {"table": "patients", "column": "national_insurance_no", "is_pii": true, "category": "government_id", "special": false},
+    {"table": "patients", "column": "email", "is_pii": true, "category": "contact", "special": false},
+    {"table": "patients", "column": "phone", "is_pii": true, "category": "contact", "special": false},
+    {"table": "patients", "column": "address_line1", "is_pii": true, "category": "contact", "special": false},
+    {"table": "patients", "column": "postal_code", "is_pii": true, "category": "contact", "special": false},
+    {"table": "patients", "column": "notes", "is_pii": true, "category": "free_text", "special": false, "note": "free text likely to embed personal data; name-based scanning misses it"},
+    {"table": "patients", "column": "city_id", "is_pii": false, "category": null, "special": false},
+    {"table": "patients", "column": "created_at", "is_pii": false, "category": null, "special": false},
+
+    {"table": "contacts", "column": "contact_id", "is_pii": false, "category": null, "special": false},
+    {"table": "contacts", "column": "patient_id", "is_pii": false, "category": null, "special": false},
+    {"table": "contacts", "column": "contact_name", "is_pii": true, "category": "identity", "special": false},
+    {"table": "contacts", "column": "contact_phone", "is_pii": true, "category": "contact", "special": false},
+    {"table": "contacts", "column": "contact_type", "is_pii": false, "category": null, "special": false, "note": "enum home/work"},
+    {"table": "contacts", "column": "relationship", "is_pii": false, "category": null, "special": false},
+
+    {"table": "payments", "column": "payment_id", "is_pii": false, "category": null, "special": false},
+    {"table": "payments", "column": "patient_id", "is_pii": false, "category": null, "special": false},
+    {"table": "payments", "column": "card_number", "is_pii": true, "category": "financial", "special": false},
+    {"table": "payments", "column": "card_expiry", "is_pii": true, "category": "financial", "special": false},
+    {"table": "payments", "column": "amount_cents", "is_pii": false, "category": null, "special": false},
+    {"table": "payments", "column": "currency", "is_pii": false, "category": null, "special": false},
+
+    {"table": "health_records", "column": "record_id", "is_pii": false, "category": null, "special": false},
+    {"table": "health_records", "column": "patient_id", "is_pii": false, "category": null, "special": false},
+    {"table": "health_records", "column": "diagnosis_code", "is_pii": true, "category": "health", "special": true},
+    {"table": "health_records", "column": "blood_type", "is_pii": true, "category": "health", "special": true},
+    {"table": "health_records", "column": "consent_flag", "is_pii": false, "category": null, "special": false},
+
+    {"table": "appointments", "column": "appointment_id", "is_pii": false, "category": null, "special": false},
+    {"table": "appointments", "column": "patient_id", "is_pii": false, "category": null, "special": false},
+    {"table": "appointments", "column": "scheduled_for", "is_pii": false, "category": null, "special": false},
+    {"table": "appointments", "column": "clinician_name", "is_pii": true, "category": "identity", "special": false},
+
+    {"table": "analytics_events", "column": "event_id", "is_pii": false, "category": null, "special": false},
+    {"table": "analytics_events", "column": "ip_address", "is_pii": true, "category": "online_identifier", "special": false},
+    {"table": "analytics_events", "column": "user_agent", "is_pii": true, "category": "online_identifier", "special": false},
+    {"table": "analytics_events", "column": "device_id", "is_pii": true, "category": "online_identifier", "special": false},
+    {"table": "analytics_events", "column": "session_id", "is_pii": true, "category": "online_identifier", "special": false},
+    {"table": "analytics_events", "column": "geo_region", "is_pii": false, "category": null, "special": false, "note": "coarse region, treated as non-identifying reference-grade data"},
+    {"table": "analytics_events", "column": "page_url", "is_pii": false, "category": null, "special": false},
+
+    {"table": "audit_log", "column": "log_id", "is_pii": false, "category": null, "special": false},
+    {"table": "audit_log", "column": "actor_email", "is_pii": true, "category": "contact", "special": false},
+    {"table": "audit_log", "column": "action", "is_pii": false, "category": null, "special": false},
+    {"table": "audit_log", "column": "payload", "is_pii": false, "category": null, "special": false},
+    {"table": "audit_log", "column": "created_at", "is_pii": false, "category": null, "special": false}
+  ]
+}

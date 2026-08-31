@@ -1,0 +1,7 @@
+# PIICompass runtime dependencies (Python 3.11+).
+# The analysis pipeline itself is standard-library only; these packages serve
+# the dashboard. The optional AI drafting layer uses urllib and needs no SDK.
+fastapi>=0.111,<1.0
+uvicorn[standard]>=0.30,<1.0
+jinja2>=3.1,<4.0
+python-dotenv>=1.0,<2.0
